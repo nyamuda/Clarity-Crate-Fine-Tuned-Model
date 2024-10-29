@@ -93,7 +93,7 @@ def train_model() :
 # Function to generate definition + example based on a word
 def generate_output(input):
     # Load the fine-tuned model from the saved directory
-    fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("./fine-tuned-model")
+    fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
     fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
     # Prepare the input
     input_text = f"summarize: {input}"
