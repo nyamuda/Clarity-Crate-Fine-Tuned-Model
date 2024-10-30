@@ -12,6 +12,8 @@ app=FastAPI()
 ds = load_dataset("FiscalNote/billsum")
 tokenizer = AutoTokenizer.from_pretrained("google-t5/t5-small")
 model = AutoModelForSeq2SeqLM.from_pretrained("google-t5/t5-small")
+fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
+fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
 #set the pad_token to eos_token
 tokenizer.pad_token=tokenizer.eos_token
 
@@ -93,31 +95,30 @@ def train_model() :
 # Function to generate definition + example based on a word
 def generate_output(input):
     # Load the fine-tuned model from the saved directory
-    fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
-    fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
+    
+  
     # Prepare the input
     input_text = f"summarize: {input}"
 
     # Tokenize the input
     input_ids = tokenizer(input_text, return_tensors="pt").input_ids
     # Generate the output (e.g., the example sentence)
-    outputs = model.generate(input_ids, max_length=128, num_beams=4, early_stopping=True)
+    outputs = fine_tuned_model.generate(input_ids, max_length=128, num_beams=4, early_stopping=True)
     # Decode the generated output
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return generated_text
 
 # Example interaction
 input = ds['test'][100]['text']
-print(input)
 
 class SummarizationRequest(BaseModel) :
     text:str
 
 def outputValue():
   #train_model()
-  #generate_definition_and_example(word)
+  generate_output(input)
   #print(ds["train"][0])
-  pass
+  
 
 
 if __name__=="__main__":
