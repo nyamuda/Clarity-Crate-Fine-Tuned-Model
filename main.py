@@ -8,12 +8,7 @@ import sys
 
 app=FastAPI()
 
-#load training data
-ds = load_dataset("FiscalNote/billsum")
 tokenizer = AutoTokenizer.from_pretrained("google-t5/t5-small")
-model = AutoModelForSeq2SeqLM.from_pretrained("google-t5/t5-small")
-fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
-fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
 #set the pad_token to eos_token
 tokenizer.pad_token=tokenizer.eos_token
 
@@ -51,6 +46,10 @@ def process_data(examples):
 # 2. TRAIN THE MODEL
 
 def train_model() :
+    #load training data
+    ds = load_dataset("FiscalNote/billsum")
+    model = AutoModelForSeq2SeqLM.from_pretrained("google-t5/t5-small")
+
     # Split the training data into training and validation sets
     train_test_split = ds["train"].train_test_split(test_size=0.2)
 
@@ -94,9 +93,9 @@ def train_model() :
 
 # Function to generate definition + example based on a word
 def generate_output(input):
-    # Load the fine-tuned model from the saved directory
+    fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
+    fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
     
-  
     # Prepare the input
     input_text = f"summarize: {input}"
 
@@ -108,16 +107,15 @@ def generate_output(input):
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return generated_text
 
-# Example interaction
-input = ds['test'][100]['text']
 
 class SummarizationRequest(BaseModel) :
     text:str
 
 def outputValue():
   #train_model()
-  generate_output(input)
+  #generate_output(input)
   #print(ds["train"][0])
+  pass
   
 
 
