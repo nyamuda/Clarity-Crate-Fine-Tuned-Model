@@ -9,6 +9,9 @@ import sys
 app=FastAPI()
 
 tokenizer = AutoTokenizer.from_pretrained("google-t5/t5-small")
+fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
+fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
+    
 #set the pad_token to eos_token
 tokenizer.pad_token=tokenizer.eos_token
 
@@ -93,8 +96,6 @@ def train_model() :
 
 # Function to generate definition + example based on a word
 def generate_output(input):
-    fine_tuned_model = AutoModelForSeq2SeqLM.from_pretrained("Tatenda/ClarityCrate")
-    fine_tuned_model.generation_config.pad_token_id = tokenizer.pad_token_id
     
     # Prepare the input
     input_text = f"summarize: {input}"
