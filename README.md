@@ -33,4 +33,4 @@ This API can be integrated into various applications, including:
 
 ## API Documentation
 
-For more information on how to use this API, please refer to the [API Documentation](https://clarity-crate-fine-tuned-model.onrender.com).
+For more information on how to use this API, please refer to the [API Documentation](https://clarity-crate-fine-tuned-model.onrender.com/docs).
