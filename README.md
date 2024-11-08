@@ -1,10 +1,11 @@
 # Science Text Summarization API
 
-This API provides access to a fine-tuned version of **t5-small** for **scientific and medical text summarization**. Tailored for students, researchers, and professionals, this model is fine-tuned on the **PubMed dataset** to effectively condense research articles, papers, and technical abstracts into clear, concise summaries.
+This API provides access to a fine-tuned version of **t5-small** for **scientific and medical text summarization**. Tailored for students, researchers, and professionals, this model is fine-tuned on the **PubMed dataset** to effectively condense research articles, and papers into clear, concise summaries.
 
 ## Model Description
 
-This API uses a fine-tuned version of **t5-small**, optimized for summarizing scientific content. Training on the PubMed dataset allows it to accurately summarize complex scientific research, making it a valuable tool for those needing quick, precise summaries of scientific materials.
+This API uses a fine-tuned version of **t5-small**, optimized for summarizing scientific content.
+You can view the model on Hugging Face here: [Model on Hugging Face](https://huggingface.co/nyamuda/extractive-summarization).
 
 ## Summarization Type
 
@@ -29,3 +30,7 @@ This API can be integrated into various applications, including:
 - Document summarization services
 - Text analysis tools for scientific and medical content
 - Educational platforms aimed at simplifying complex scientific materials
+
+## API Documentation
+
+For more information on how to use this API, please refer to the [API Documentation](https://clarity-crate-fine-tuned-model.onrender.com).
